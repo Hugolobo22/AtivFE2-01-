@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de IMC</title>
+<style>
+    body {
+        font-family: Arial, sans-serif; /* fonte escolhida para o texto */
+    }
+    .container { /* Caracterização da "caixa" que está toda a calculadora (na página web se percebe um quadrado branco) */
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    input[type="text"], input[type="number"], button { /* caracterização dos inputs (peso e altura) */
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    button { /* caracterização do botão (calcular IMC) */
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover { /* Pequena mudança de cor quando se sobrepõe o mouse (A cor fica mais escura apenas) */
+        background-color: #0056b3;
+    }
+    .resultado { /* Caracterização do resultado */
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<div class="container"> <!-- Tarefa 1 -->
+    <input type="number" id="peso" placeholder="Digite seu peso em kg"> <!-- Input para inserir o peso -->
+    <input type="number" id="altura" placeholder="Digite sua altura em metros"> <!-- Input para inserir a altura -->
+
+    <button onclick="calcularIMC()">Calcular</button> <!-- Botão que, quando receber um click, chama a função calcularIMC -->
+
+    <div class="resultado" id="resultado"></div> <!-- Uma segunda div como resultado, usada para exibir o resultado futuramente -->
+</div>
+
+<script>
+function calcularIMC() { // Tarefa 2 parte 1
+    var peso = document.getElementById("peso").value; // variável peso pegando elemento do Id "peso" do input acima
+    var altura = document.getElementById("altura").value; // variável altura pegando elemento do Id "altura" do input acima
+    var resultadoDiv = document.getElementById("resultado"); // variável resultado pegando elemento do Id "resultado" do input acima
+
+    if (peso === "" || altura === "") { // caso os campos "peso" e "altura" estejam vazios (uma string vazia) o if acontecerá
+        alert("Por favor, preencha ambos os campos de peso e altura."); // com a condição do if acima, o código emite um alert informando que é necessário preencher ambos os campos
+        return; // (Tarefa 3 acima)
+    }
+
+    var imc = peso / (altura * altura); // após prosseguir com o if, temos a matemática da função para calcular o IMC
+    var classificacao = ""; // declaro uma função vazia para receber o atributo após o calculo do IMC
+    // (Tarefa 4 abaixo)
+    if (imc < 18.5) { // se o IMC for menor que 18.5 o código abaixo acontece 
+        classificacao = "Abaixo do Peso";
+        resultadoDiv.style.backgroundColor = "#9C27B0"; // Código utilizado na tarefa do cadastro de Cachorros do dia 17/04
+    } else if (imc >= 18.5 && imc < 25) { // se o IMC for entre 18.5 e 25 o código abaixo acontece
+        classificacao = "Peso Normal";
+        resultadoDiv.style.backgroundColor = "#4CAF50";
+    } else if (imc >= 25 && imc < 30) { // se o IMC for entre 25 e 30 o código abaixo acontece
+        classificacao = "Sobrepeso";
+        resultadoDiv.style.backgroundColor = "#FFC107";
+    } else if (imc >= 30 && imc < 35) { // se o IMC for entre 30 e 35 o código abaixo acontece
+        classificacao = "Obesidade Grau I";
+        resultadoDiv.style.backgroundColor = "#FF9800";
+    } else if (imc >= 35 && imc < 40) { // se o IMC for entre 35 e 40 o código abaixo acontece
+        classificacao = "Obesidade Grau II";
+        resultadoDiv.style.backgroundColor = "#FF5722";
+    } else { // se o IMC for maior que todos os anteriores (maior que 40) o código abaixo acontece
+        classificacao = "Obesidade Grau III (Obesidade Mórbida)";
+        resultadoDiv.style.backgroundColor = "#795548";
+    }
+
+    resultadoDiv.innerText = "Seu IMC é " + imc.toFixed(2) + ". Classificação: " + classificacao; 
+} // (Tarefa 2 parte 2) após tudo, o código acima envia o resultado por forma de string para a varíavel resultadoDiv, que "enviará" sua atribuição para a div resultado do HTML
+</script>
+
+</body>
+</html>
